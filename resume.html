@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Stream | Hacker Portfolio</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Fira Code', monospace;
+      background-color: #0d1117;
+      color: #c9d1d9;
+      overflow-x: hidden;
+      position: relative;
+    }
+    /* Background Animation */
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .neon-text {
+      font-size: 2rem;
+      color: #39ff14;
+      text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 40px #39ff14;
+      animation: glow 1.5s infinite alternate;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 40px #39ff14; }
+      to { text-shadow: 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 30px #39ff14, 0 0 50px #39ff14; }
+    }
+    .console {
+      background-color: #161b22;
+      border: 1px solid #ffffff10;
+      border-radius: 5px;
+      padding: 20px;
+      width: 80%;
+      max-width: 600px;
+      text-align: left;
+      overflow-y: auto;
+      max-height: 300px;
+      transition: opacity 1s ease-in-out;
+    }
+    .console pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      color: #39ff14;
+    }
+    .cursor {
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+    .data-stream {
+      display: none;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      animation: fadeIn 1s ease-in-out forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .stream-line {
+      position: absolute;
+      white-space: nowrap;
+      font-size: 1.2rem;
+      color: #39ff14;
+      text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14, 0 0 20px #39ff14;
+      animation: scroll 15s linear infinite;
+    }
+    @keyframes scroll {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+    .highlight {
+      color: #ff00ff;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Animation -->
+  <canvas id="background"></canvas>
+
+  <div class="container">
+    <!-- Terminal Console -->
+    <div class="console" id="console">
+      <pre id="output">
+<span style="color: #ff00ff;">root@portfolio:</span><span style="color: #39ff14;">~</span><span style="color: #ff00ff;">$</span> unlock-resume
+Accessing secure profile...
+Please wait while your credentials are verified...<span class="cursor">_</span>
+      </pre>
+    </div>
+
+    <!-- Data Stream -->
+    <div class="data-stream" id="dataStream">
+      <div class="stream-line" style="top: 10%;">PROFILE: Name = John Doe | Location = Mumbai, India | Contact = john.doe@example.com</div>
+      <div class="stream-line" style="top: 25%;">SKILLS: Penetration Testing, Web Application Security, Cryptography, Network Defense</div>
+      <div class="stream-line" style="top: 40%;">EXPERIENCE: Ethical Hacker at CyberSec Solutions (2021 - Present)</div>
+      <div class="stream-line" style="top: 55%;">EDUCATION: Bachelor of Technology in Computer Science - XYZ University (2014 - 2018)</div>
+      <div class="stream-line" style="top: 70%;">PROJECTS: Vulnerability Scanner, Secure Chat Application, Network Traffic Analyzer</div>
+    </div>
+  </div>
+
+  <script>
+    // Background Animation (Matrix Effect)
+    const canvas = document.getElementById('background');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*()';
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+    const drops = Array(columns).fill(1);
+
+    function draw() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#39ff14';
+      ctx.font = `${fontSize}px 'Fira Code'`;
+
+      drops.forEach((drop, index) => {
+        const text = characters.charAt(Math.floor(Math.random() * characters.length));
+        ctx.fillText(text, index * fontSize, drop * fontSize);
+
+        if (drop * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[index] = 0;
+        }
+
+        drops[index]++;
+      });
+    }
+
+    setInterval(draw, 50);
+
+    // Typing Effect
+    const output = document.getElementById('output');
+    const messages = [
+      "Accessing secure profile...",
+      "Please wait while your credentials are verified...",
+      "Verification complete.",
+      "Unlocking data stream..."
+    ];
+    let messageIndex = 0;
+
+    function typeMessage() {
+      if (messageIndex >= messages.length) return;
+
+      const message = messages[messageIndex];
+      let i = 0;
+      const interval = setInterval(() => {
+        output.innerHTML += message[i];
+        i++;
+        if (i >= message.length) {
+          clearInterval(interval);
+          output.innerHTML += "\n";
+          messageIndex++;
+          if (messageIndex < messages.length) {
+            setTimeout(typeMessage, 1000); // Delay between messages
+          } else {
+            setTimeout(showDataStream, 1000); // Show data stream after typing completes
+          }
+        }
+      }, 50);
+    }
+
+    // Show Data Stream and Hide Console
+    function showDataStream() {
+      const dataStream = document.getElementById('dataStream');
+      const consoleElement = document.getElementById('console');
+
+      dataStream.style.display = 'block';
+      consoleElement.style.opacity = '0'; // Fade out console
+      setTimeout(() => {
+        consoleElement.style.display = 'none'; // Remove console from view
+      }, 1000);
+    }
+
+    // Start typing effect
+    setTimeout(typeMessage, 1000);
+  </script>
+</body>
+</html>

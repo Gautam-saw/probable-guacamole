@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Projects | Hacker Portfolio</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Fira Code', monospace;
+      background-color: #0d1117;
+      color: #c9d1d9;
+      overflow-x: hidden;
+      position: relative;
+    }
+    /* Background Animations */
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .neon-text {
+      font-size: 2rem;
+      color: #39ff14;
+      text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 40px #39ff14;
+      animation: glow 1.5s infinite alternate;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 40px #39ff14; }
+      to { text-shadow: 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 30px #39ff14, 0 0 50px #39ff14; }
+    }
+    .project-card {
+      background-color: #161b22;
+      border: 1px solid #ffffff10;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      width: 100%;
+      max-width: 800px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+    .project-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
+    }
+    .project-title {
+      font-size: 1.5rem;
+      color: #39ff14;
+      margin-bottom: 10px;
+    }
+    .project-description {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #c9d1d9;
+      margin-bottom: 10px;
+    }
+    .project-links {
+      display: flex;
+      gap: 10px;
+    }
+    .project-link {
+      display: inline-block;
+      background-color: #21262d;
+      color: #39ff14;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .project-link:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 15px #ff00ff;
+    }
+    .console {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #161b22;
+      padding: 10px;
+      border-top: 1px solid #ffffff10;
+      display: flex;
+      align-items: center;
+    }
+    .console input {
+      background: none;
+      border: none;
+      outline: none;
+      color: #39ff14;
+      font-family: 'Fira Code', monospace;
+      font-size: 1rem;
+      flex-grow: 1;
+    }
+    .console input::placeholder {
+      color: #39ff1480;
+    }
+    .cursor {
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Animation -->
+  <canvas id="background"></canvas>
+
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1 class="neon-text">My Projects</h1>
+      <p style="color: #ffffff80;">Showcasing my work in cybersecurity, ethical hacking, and development.</p>
+    </div>
+
+    <!-- Project Cards -->
+    <div class="project-card">
+      <div class="project-title">Vulnerability Scanner</div>
+      <div class="project-description">
+        A Python-based vulnerability scanner that identifies common security flaws in web applications. Built using libraries like `requests` and `BeautifulSoup`.
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/example/vulnerability-scanner" target="_blank" class="project-link">GitHub</a>
+        <a href="https://example.com/demo" target="_blank" class="project-link">Live Demo</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-title">Secure Chat Application</div>
+      <div class="project-description">
+        An end-to-end encrypted chat application built with Node.js and Socket.IO. Features include real-time messaging and AES-256 encryption.
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/example/secure-chat" target="_blank" class="project-link">GitHub</a>
+        <a href="https://example.com/chat" target="_blank" class="project-link">Live Demo</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-title">Network Traffic Analyzer</div>
+      <div class="project-description">
+        A tool for analyzing network traffic using Wireshark APIs. Provides insights into packet data and potential vulnerabilities.
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/example/network-analyzer" target="_blank" class="project-link">GitHub</a>
+        <a href="https://example.com/analyzer" target="_blank" class="project-link">Live Demo</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Console -->
+  <div class="console">
+    <span style="color: #ff00ff;">root@portfolio:</span><span style="color: #39ff14;">~</span><span style="color: #ff00ff;">$</span>
+    <input type="text" placeholder="Type a command..." onkeydown="handleCommand(event)">
+    <span class="cursor">_</span>
+  </div>
+
+  <script>
+    // Background Animation (Matrix Effect)
+    const canvas = document.getElementById('background');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*()';
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+    const drops = Array(columns).fill(1);
+
+    function draw() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#39ff14';
+      ctx.font = `${fontSize}px 'Fira Code'`;
+
+      drops.forEach((drop, index) => {
+        const text = characters.charAt(Math.floor(Math.random() * characters.length));
+        ctx.fillText(text, index * fontSize, drop * fontSize);
+
+        if (drop * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[index] = 0;
+        }
+
+        drops[index]++;
+      });
+    }
+
+    setInterval(draw, 50);
+
+    // Handle Console Commands
+    function handleCommand(event) {
+      if (event.key === 'Enter') {
+        const input = event.target.value.toLowerCase();
+        if (input === 'home') {
+          window.location.href = 'index.html'; // Redirect to homepage
+        } else if (input === 'about') {
+          alert("Redirecting to About Me...");
+        } else if (input === 'blog') {
+          alert("Redirecting to Blog...");
+        } else if (input === 'resume') {
+          alert("Downloading Resume...");
+        } else {
+          alert("Command not found. Try 'home', 'about', 'blog', or 'resume'.");
+        }
+        event.target.value = '';
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hacker Portfolio</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Fira Code', monospace;
+      background-color: #0d1117;
+      color: #c9d1d9;
+      overflow-x: hidden;
+    }
+    .container {
+      display: flex;
+      height: 100vh;
+    }
+    .sidebar {
+      width: 350px;
+      background-color: #161b22;
+      border-right: 1px solid #ffffff10;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .terminal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      background-color: #21262d;
+      border-bottom: 1px solid #ffffff10;
+    }
+    .terminal-header .buttons {
+      display: flex;
+      gap: 5px;
+    }
+    .button {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .button.red {
+      background-color: #ff5f56;
+    }
+    .button.yellow {
+      background-color: #ffbd2e;
+    }
+    .button.green {
+      background-color: #27c93f;
+    }
+    .terminal-body {
+      flex-grow: 1;
+      padding: 10px;
+      overflow-y: auto;
+    }
+    .terminal-body pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    .main-content {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .neon-text {
+      font-size: 2rem;
+      color: #39ff14;
+      text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 40px #39ff14;
+      animation: glow 1.5s infinite alternate;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 40px #39ff14; }
+      to { text-shadow: 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 30px #39ff14, 0 0 50px #39ff14; }
+    }
+    .icons {
+      display: flex;
+      gap: 20px;
+      margin-top: 50px;
+    }
+    .icon {
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .icon:hover {
+      transform: scale(1.2);
+      box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
+    }
+    .terminal-footer {
+      background-color: #21262d;
+      padding: 10px;
+      border-top: 1px solid #ffffff10;
+    }
+    .terminal-footer input {
+      background: none;
+      border: none;
+      outline: none;
+      color: #39ff14;
+      font-family: 'Fira Code', monospace;
+      font-size: 1rem;
+      width: 100%;
+    }
+    .terminal-footer input::placeholder {
+      color: #39ff1480;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="terminal-header">
+        <span>About Me</span>
+        <div class="buttons">
+          <div class="button red" onclick="closeSidebar()"></div>
+          <!-- <div class="button yellow"></div> -->
+          <!-- <div class="button green"></div> -->
+        </div>
+      </div>
+      <div class="terminal-body">
+        <pre>
+Hi there! 👋
+
+I'm a cybersecurity enthusiast and ethical hacker. I specialize in identifying vulnerabilities, securing systems, and exploring the world of ethical hacking.
+
+Skills:
+- Penetration Testing
+- Web Application Security
+- Cryptography
+- Network Security
+
+Tools I Use:
+- ParrotOS
+- Metasploit
+- Burp Suite
+- Wireshark
+
+Let's secure the digital world together!
+        </pre>
+      </div>
+      <div class="terminal-footer">
+        <input type="text" placeholder="Type something..." disabled>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <h1 class="neon-text">Welcome to My Hacker Portfolio</h1>
+      <div class="icons">
+        <img src="https://via.placeholder.com/60?text=Blogs" alt="Blogs Icon" class="icon" onclick="alert('Redirecting to Blogs...')">
+        <img src="https://via.placeholder.com/60?text=Resume" alt="Resume Icon" class="icon" onclick="alert('Downloading Resume...')">
+        <img src="project.html" alt="Projects Icon" class="icon" onclick="alert('Showing Projects...')">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function closeSidebar() {
+      const sidebar = document.querySelector('.sidebar');
+      sidebar.style.display = 'none';
+    }
+  </script>
+</body>
+</html>
+```
